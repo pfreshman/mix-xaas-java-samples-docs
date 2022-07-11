@@ -1,0 +1,10 @@
+{{ if .Site.Params.source_code_repo }}
+<a class="btn btn-lg btn-secondary mr-3 mb-4" target="_blank" href="{{ .Site.Params.source_code_repo }}">
+    Download <i class="fab fa-gitlab ml-2 "></i>
+</a>
+{{ end }}
+{{ if eq .Page.File.Ext "md" }}
+{{ .Inner | markdownify }}
+{{ else }}
+{{ .Inner | htmlUnescape | safeHTML }}
+{{ end }}

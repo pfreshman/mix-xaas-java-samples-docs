@@ -1,0 +1,52 @@
+/*
+
+Nothing defined here. The Hugo project that uses this theme can override Bootstrap by adding a file to:
+
+assets/scss/_styles_project.scss
+
+*/
+
+// Disable shadowing of nav links
+.td-navbar-cover {
+    background: $primary;
+
+    @include media-breakpoint-up(md) {
+        background: transparent !important;
+
+        .nav-link {
+            text-shadow: none;
+        }
+
+    }
+
+    &.navbar-bg-onscroll .nav-link {
+        text-shadow: none;
+    }
+}
+
+// Change color of navigation bar and links
+.navbar-dark .navbar-brand {
+    color: lightblue;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: lightblue;
+    font-size: 1.2rem;
+}
+
+// Change font styling of footer titles and items
+.footer_title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+}
+
+.footer_items {
+    list-style-type: none;
+    padding-inline-start: 0px;
+}
+
+.footer_item {
+    font-size: 1rem;
+    color: #ebedf0;
+}

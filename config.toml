@@ -1,0 +1,121 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'Mix XaaS Java Samples'
+theme = "docsy"
+
+enableRobotsTXT = true
+
+# Highlighting config
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic = false
+#pygmentsOptions = "linenos=table"
+# See https://help.farbox.com/pygments.html
+pygmentsStyle = "tango"
+
+[menu]
+
+  [[menu.main]]
+    name = "Mix Run-Time API Docs"
+    url = "https://docs.mix.nuance.com/runtime-services/#runtime-apis-quick-reference"
+    weight = 30
+
+  #[[menu.main]]
+  #  name = "About"
+  #  url = "/about"
+  #  weight = 40
+
+# User interface configuration
+[params.ui]
+# Enable to show the side bar menu in its compact state.
+sidebar_menu_compact = true
+sidebar_menu_foldable = false
+sidebar_cache_limit = 10
+ul_show = 2
+# Set to true to disable breadcrumb navigation.
+breadcrumb_disable = false
+# Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+sidebar_search_disable = false
+# Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+navbar_logo = false
+navbar_translucent_over_cover_disable = false
+footer_about_disable = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+      # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
+      style = "tango"
+      # Uncomment if you want your chosen highlight style used for code blocks without a specified language
+      # guessSyntax = "true"
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 5
+    ordered = false
+
+[params]
+copyright = "Nuance Communications, Inc."
+privacy_policy = "https://www.nuance.com/about-us/company-policies/privacy-policies.html"
+legal_notices = "https://www.nuance.com/about-us/company-policies/legal-notices.html"
+#source_code_repo = "https://github.com/nuance-communications"
+main_color = "orange"
+description = "A collection of Java command-line sample apps to help you get up and running quickly with Mix 3 run-time API's"
+
+version_menu = "Releases"
+archived_version = false
+version = "0.0.1"
+
+notoc = true
+
+# End user relevant links. These will show up on left side of footer and in the community page if you have one.
+[params.links.mix.dashboard]
+  name ="Mix Dashboard"
+  url = "https://mix.nuance.com/v3"
+  icon = "fab fa-github"
+  desc = "Nuance Mix"
+[params.links.mix.documentation]
+  name = "Mix Documentation"
+  url = "https://docs.mix.nuance.com/"
+  icon = "fa fa-envelope"
+  desc = "Mix Documentation"
+[params.links.mix.forum]
+  name = "Forum"
+  url = "https://community.mix.nuance.com?src=mix-event-log-collector"
+  icon = "fa fa-envelope"
+  desc = "Mix Forum"
+[params.links.mix.privacy_policy]
+  name = "Privacy Policy"
+  url = "https://www.nuance.com/about-us/company-policies/privacy-policies.html"
+  icon = "fa fa-envelope"
+  desc = "Privacy Policy"
+[params.links.mix.legal_terms]
+  name = "Terms"
+  url = "https://www.nuance.com/about-us/company-policies/legal-notices.html"
+  icon = "fa fa-envelope"
+  desc = "Legal Terms"
+
+[module]
+[module.hugoVersion]
+extended = true
+min = "0.73.0"
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    source = 'node_modules/bootstrap'
+    target = 'assets/vendor/bootstrap'
+  [[module.mounts]]
+    source = 'node_modules/@fortawesome/fontawesome-free'
+    target = 'assets/vendor/Font-Awesome'
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = 'layouts'
+    target = 'layouts'
+  [[module.mounts]]
+    source = 'static'
+    target = 'static'

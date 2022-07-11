@@ -1,0 +1,10 @@
+{{ if .Site.Params.description }}
+<span>
+    {{ .Site.Params.description }}
+</span>
+{{ end }}
+{{ if eq .Page.File.Ext "md" }}
+{{ .Inner | markdownify }}
+{{ else }}
+{{ .Inner | htmlUnescape | safeHTML }}
+{{ end }}
