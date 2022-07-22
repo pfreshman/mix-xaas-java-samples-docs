@@ -3,13 +3,15 @@ title: A sample java gRPC client for ASRaaS.Train
 linkTitle: ASR Train
 ---
 
-This sample app uses the Mix3 ASRaaS gRPC API to train (ie. create compiled) wordsets.
+This sample app uses the [Mix ASRaaS Training gRPC API](https://docs.mix.nuance.com/asr-grpc/v1/#training-api) to train (ie. create compiled) wordsets.
 
 [Download Jar](/downloads/asr_train.jar)
 
+[Sample Params](/downloads/asr-train.json)
+
 ## Usage Details
 
-```shell
+```
 $ java -jar build/libs/asr_train.jar -H
 Version: 1.0.0
 usage: java -jar asr_train.jar [-H|--help] [-cmd|--command <value>] [-h|--hostname <value>]
@@ -34,10 +36,16 @@ Arguments:
 
 ## Running an ASR.Train Request
 
+### Pre-Requisites
+
+A deployed ASR model will be required to perform the ASR training requests.
+
+{{% mix-project-pre-reqs %}}
+
 ### Compile Wordset
 
 ```
-$ java -jar build/libs/asr_train.jar -c config.mix-beta.json -cmd compile
+$ java -jar build/libs/asr_train.jar -c config.my-config.json -cmd compile
 2021-05-13 16:28:14.531 INFO    Version: 1.0.0
 2021-05-13 16:28:14.627 INFO    CONNECTING (ASR.WORDSET)...
 2021-05-13 16:28:14.629 INFO    AUTHENTICATING... (ASRAAS)
@@ -73,7 +81,7 @@ $ java -jar build/libs/asr_train.jar -c config.mix-beta.json -cmd compile
 ### Get Wordset Metadata
 
 ```
-$ java -jar build/libs/asr_train.jar -c config.mix-beta.json -cmd metadata
+$ java -jar build/libs/asr_train.jar -c config.my-config.json -cmd metadata
 2021-05-13 16:42:16.400 INFO    Version: 1.0.0
 2021-05-13 16:42:16.500 INFO    CONNECTING (ASRAAS.WORDSET)...
 2021-05-13 16:42:16.501 INFO    AUTHENTICATING... (ASRAAS.WORDSET)
@@ -92,7 +100,7 @@ $ java -jar build/libs/asr_train.jar -c config.mix-beta.json -cmd metadata
 ### Delete Wordset
 
 ```
-$ java -jar build/libs/asr_train.jar -c config.mix-beta.json -cmd delete
+$ java -jar build/libs/asr_train.jar -c config.my-config.json -cmd delete
 2021-05-13 16:42:53.546 INFO    Version: 1.0.0
 2021-05-13 16:42:53.645 INFO    CONNECTING (ASRAAS.WORDSET)...
 2021-05-13 16:42:53.646 INFO    AUTHENTICATING... (ASRAAS.WORDSET)

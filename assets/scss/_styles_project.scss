@@ -5,10 +5,13 @@ Nothing defined here. The Hugo project that uses this theme can override Bootstr
 assets/scss/_styles_project.scss
 
 */
+.td-navbar {
+    background: lightblue;
+}
 
 // Disable shadowing of nav links
 .td-navbar-cover {
-    background: $primary;
+    background: $primary-light;
 
     @include media-breakpoint-up(md) {
         background: transparent !important;
@@ -26,11 +29,11 @@ assets/scss/_styles_project.scss
 
 // Change color of navigation bar and links
 .navbar-dark .navbar-brand {
-    color: lightblue;
+    color: darkslategrey;
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: lightblue;
+    color: darkslategrey;
     font-size: 1.2rem;
 }
 

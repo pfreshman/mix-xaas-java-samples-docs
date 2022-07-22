@@ -7,9 +7,11 @@ This sample app uses the Mix3 TTSaaS gRPC API to make TTS requests.
 
 [Download Jar](/downloads/tts_client.jar)
 
+[Sample Params](/downloads/params.tts.json)
+
 ## Usage Details
 
-```shell
+```
 $ java -jar build/libs/tts_client.jar -H
 Version: 1.0.0
 usage: java -jar tts_client.jar [-H|--help] [-h|--hostname <value>] [-c|--configFile <value>]
@@ -39,7 +41,9 @@ Arguments:
 
 ## Running a TTS Request
 
-```shell
+### Synthesize a Single Phrase
+
+```
 $ java -jar build/libs/tts_client.jar --textInput  "This is a test using params dot json to specify Zoe as the voice"
 2020-09-13 19:44:45.373 INFO  Version: 1.0.0
 2020-09-13 19:44:45.458 INFO  CONNECTING (TTSAAS)...
@@ -82,80 +86,7 @@ $ java -jar build/libs/tts_client.jar --textInput  "This is a test using params 
 2020-09-13 19:44:46.727 INFO  PLAYING STARTED
 2020-09-13 19:44:46.980 INFO  CONNECTED (TTSAAS)
 2020-09-13 19:44:47.166 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.168 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.169 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.173 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.174 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.176 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.177 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.178 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.180 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.181 INFO  received 1658 bytes of audio
-2020-09-13 19:44:47.195 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.198 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.198 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.214 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.215 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.216 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.217 INFO  received 914 bytes of audio
-2020-09-13 19:44:47.232 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.233 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.234 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.235 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.236 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.253 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.255 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.256 INFO  received 742 bytes of audio
-2020-09-13 19:44:47.260 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.261 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.262 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.277 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.278 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.279 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.281 INFO  received 214 bytes of audio
-2020-09-13 19:44:47.314 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.315 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.317 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.333 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.334 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.335 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.337 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.338 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.340 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.357 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.359 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.362 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.364 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.366 INFO  received 2202 bytes of audio
-2020-09-13 19:44:47.368 INFO  received 1476 bytes of audio
-2020-09-13 19:44:47.370 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.372 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.381 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.383 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.384 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.385 INFO  received 1112 bytes of audio
-2020-09-13 19:44:47.386 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.386 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.387 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.389 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.390 INFO  received 364 bytes of audio
-2020-09-13 19:44:47.397 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.399 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.401 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.402 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.404 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.406 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.417 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.419 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.420 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.422 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.423 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.425 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.427 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.429 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.437 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.441 INFO  received 2646 bytes of audio
-2020-09-13 19:44:47.443 INFO  received 2646 bytes of audio
+... log statements redacted for brevity ...
 2020-09-13 19:44:47.444 INFO  received 1192 bytes of audio
  <<<<<<<<< {
   "status": {
@@ -165,4 +96,113 @@ $ java -jar build/libs/tts_client.jar --textInput  "This is a test using params 
 }
 2020-09-13 19:44:51.599 INFO  PLAYING STOPPED
 2020-09-13 19:44:51.599 INFO  187156 bytes written to file [microphone]
+```
+
+### Synthesize a Batch of Phrases
+
+> Specify a file containing phrases to synthesize for the `-ti` arg and include the `-b` arg
+
+```
+java -jar build/libs/tts_client.jar -c config.mix-beta.json -b -ti sample/input.txt 
+2022-07-21 09:06:53.270 INFO    Version: 1.0.0
+2022-07-21 09:06:53.378 INFO    CONNECTING (TTSAAS)...
+2022-07-21 09:06:53.380 INFO    AUTHENTICATING... (TTSAAS)
+2022-07-21 09:06:53.999 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (TTSAAS)
+2022-07-21 09:06:54.471 INFO    Line #1: Hello world
+2022-07-21 09:06:55.130 INFO    CONNECTED (TTSAAS)
+ >>>>>>>>> {
+  "voice": {
+    "name": "Zoe-Ml",
+    "model": "enhanced",
+    "language": "en-US"
+  },
+  "audioParams": {
+    "audioFormat": {
+      "pcm": {
+        "sampleRateHz": 22050
+      }
+    },
+    "volumePercentage": 80,
+    "audioChunkDurationMs": 60
+  },
+  "input": {
+    "text": {
+      "text": "Hello world"
+    }
+  },
+  "eventParams": {
+    "sendWordMarkerEvents": true
+  },
+  "clientData": {
+    "transaction_id": "5b92a68d-8ee5-476a-9c0e-92cb0fa0f4b2",
+    "subscriber_id": "664f758ae97543008195bdd6662888bf",
+    "user_id": "664f758ae97543008195bdd6662888bf",
+    "client_app": "xaas_tts_java_sample_client",
+    "deviceModel": "x86_64",
+    "client_version": "1.0"
+  },
+  "userId": "664f758ae97543008195bdd6662888bf"
+}
+2022-07-21 09:06:55.134 INFO    PLAYING STARTED
+2022-07-21 09:06:55.144 INFO    Adding x-client-request-id d21bb4dc-c847-4a09-ad07-cc497d1680e0
+2022-07-21 09:06:55.292 INFO    received 2646 bytes of audio
+... log statements redacted for brevity ...
+2022-07-21 09:06:55.343 INFO    received 626 bytes of audio
+ <<<<<<<<< {
+  "status": {
+    "code": 200,
+    "message": "OK"
+  }
+}
+2022-07-21 09:06:55.346 INFO    PLAYING STOPPED
+2022-07-21 09:06:55.346 INFO    56192 bytes written to file [Hello world-21.out]
+2022-07-21 09:06:55.474 INFO    Line #2: What time is it?
+ >>>>>>>>> {
+  "voice": {
+    "name": "Zoe-Ml",
+    "model": "enhanced",
+    "language": "en-US"
+  },
+  "audioParams": {
+    "audioFormat": {
+      "pcm": {
+        "sampleRateHz": 22050
+      }
+    },
+    "volumePercentage": 80,
+    "audioChunkDurationMs": 60
+  },
+  "input": {
+    "text": {
+      "text": "What time is it?"
+    }
+  },
+  "eventParams": {
+    "sendWordMarkerEvents": true
+  },
+  "clientData": {
+    "transaction_id": "b8aff52c-693b-4c61-a616-d11c0e56a9fc",
+    "subscriber_id": "664f758ae97543008195bdd6662888bf",
+    "user_id": "664f758ae97543008195bdd6662888bf",
+    "client_app": "xaas_tts_java_sample_client",
+    "deviceModel": "x86_64",
+    "client_version": "1.0"
+  },
+  "userId": "664f758ae97543008195bdd6662888bf"
+}
+2022-07-21 09:06:55.477 INFO    Adding x-client-request-id ff1750c1-b079-44f3-ab36-e3127afb0784
+2022-07-21 09:06:55.477 INFO    PLAYING STARTED
+2022-07-21 09:06:55.600 INFO    received 2646 bytes of audio
+... log statements redacted for brevity ...
+2022-07-21 09:06:55.616 INFO    received 1280 bytes of audio
+ <<<<<<<<< {
+  "status": {
+    "code": 200,
+    "message": "OK"
+  }
+}
+2022-07-21 09:06:55.617 INFO    PLAYING STOPPED
+2022-07-21 09:06:55.618 INFO    59492 bytes written to file [What time is it?-21.out]
+2022-07-21 09:06:55.799 INFO    Channel Shutdown
+2022-07-21 09:06:55.800 INFO    DISCONNECTED (TTSAAS)
 ```

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+    
+      <div class="col-1">
+        {{ if .Get "previous" }}
+        <span title="next">
+            <a class="btn btn-primary fa-solid fa-angles-left" href="/docs/{{ .Get "previous" }}" alt="previous"></a>
+        </span>
+        {{ end }}
+      </div>
+
+      <div class="col-10"></div>
+
+      <div class="col-1">
+        {{ if .Get "next" }}
+        <span title="next">
+            <a class="btn btn-primary fa-solid fa-angles-right btnNext" href="/docs/{{ .Get "next" }}"></a>
+        </span>
+        {{ end }}
+      </div>
+      
+    </div>
+</div>
+
+{{ if eq .Page.File.Ext "md" }}
+{{ .Inner | markdownify }}
+{{ else }}
+{{ .Inner | htmlUnescape | safeHTML }}
+{{ end }}

@@ -1,0 +1,18 @@
+{
+    "target_artifact_reference": {
+        "uri": "urn:nuance:mix/eng-USA/XAAS_TEST/mix.asr"
+    },
+    "artifact_reference": {
+        "uri": "urn:nuance:mix/eng-USA/XAAS_TEST/mix.asr"
+    },
+    "companion_artifact_reference": {
+        "uri": "urn:nuance:mix/eng-USA/XAAS_TEST/mix.asr"
+    },
+    "wordset": "{\"NAME\":[{\"literal\":\"Spiderman\",\"spoken\":[\"spiderman\"]}, {\"literal\":\"Vision\",\"spoken\":[\"vision\"]}]}",
+    "metadata": {
+        "tenant": "nuance",
+        "project": "test",
+        "client_version": "1.0.0"
+    },
+    "client_data": {}
+}

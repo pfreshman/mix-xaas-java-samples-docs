@@ -3,13 +3,13 @@ title: A sample java gRPC client for TTSaaS.Storage
 linkTitle: TTS Storage
 ---
 
-This sample app uses the Mix3 TTSaaS gRPC API to upload storage.
+This sample app uses the [Mix TTSaaS Storage gRPC API](https://docs.mix.nuance.com/tts-grpc/v1/#storage-api) to upload storage.
 
 [Download Jar](/downloads/tts_storage.jar)
 
 ## Usage Details
 
-```shell
+```
 $ java -jar build/libs/tts_storage.jar -H
 Version: 1.0.0
 usage: java -jar tts_storage.jar [-H|--help] [-h|--hostname <value>] [-c|--configFile <value>]
@@ -45,8 +45,10 @@ Arguments:
  ```
 
 ## Running a TTS.Storage Request
-```shell
-$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.xaas.json  -tp TEXT_RULESET -f ruleset.txt -t 12345 -name parms -lc en-US -ct 60000
+
+### Upload a Text Ruleset
+```
+$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.json  -tp TEXT_RULESET -f ruleset.txt -t 12345 -name parms -lc en-US -ct 60000
 2021-10-14 12:39:53.580 INFO    Version: 1.0.0
 2021-10-14 12:39:53.740 INFO    CONNECTING ...
 2021-10-14 12:39:53.742 INFO    AUTHENTICATING...
@@ -57,8 +59,12 @@ $ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.xaas.json  -t
 2021-10-14 12:39:57.177 INFO     <<<<<<<<< {"status":{"statusCode":"OK"},"uri":"urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?type\u003dtextruleset"}
 2021-10-14 12:39:57.185 INFO    Channel Shutdown
 2021-10-14 12:39:57.185 INFO    DISCONNECTED
+```
 
-$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.xaas.json  -tp USER_DICTIONARY -f hahaha.dcb -t 12345
+### Upload a User Dictionary
+
+```
+$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.json  -tp USER_DICTIONARY -f hahaha.dcb -t 12345
  -name parms -lc en-US -ct 60000
 2021-10-15 09:40:55.987 INFO    Version: 1.0.0
 2021-10-15 09:40:56.082 INFO    CONNECTING ...
@@ -70,8 +76,12 @@ $ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.xaas.json  -t
 2021-10-15 09:40:58.790 INFO     <<<<<<<<< {"status":{"statusCode":"OK"},"uri":"urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?type\u003duserdict"}
 2021-10-15 09:40:58.796 INFO    Channel Shutdown
 2021-10-15 09:40:58.797 INFO    DISCONNECTED
+```
 
-$ java -jar build/libs/tts_storage.jar -cmd DELETE -c ../../config.xaas.json -tp USER_DICTIONARY -lc en-US -u urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?type\u003duserdict
+### Delete a Previously Uploaded User Dictionary
+
+```
+$ java -jar build/libs/tts_storage.jar -cmd DELETE -c ../../config.my-config.json -tp USER_DICTIONARY -lc en-US -u urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?type\u003duserdict
 2021-10-15 09:42:35.049 INFO    Version: 1.0.0
 2021-10-15 09:42:35.139 INFO    CONNECTING ...
 2021-10-15 09:42:35.141 INFO    AUTHENTICATING...

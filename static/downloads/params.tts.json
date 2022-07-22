@@ -1,0 +1,28 @@
+{
+  "voice": {
+    "name": "Zoe-Ml",
+    "model": "enhanced",
+    "language": "en-US"
+  },
+  "audioParams": {
+    "audioFormat": {
+      "pcm": {
+        "sample_rate_hz": 22050
+      }
+    },
+    "volumePercentage": 80,
+    "audioChunkDurationMs": 60
+  },
+  "input": {
+    "text": {
+      "text": "Hello world. This is a test"
+    }
+  },
+  "eventParams": {
+    "sendWordMarkerEvents": true
+  },
+  "clientData": {
+    "client_version": "1.0",
+    "client_app": "xaas_tts_java_sample_client"
+  }
+}

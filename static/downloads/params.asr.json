@@ -1,0 +1,49 @@
+{
+  "parameters": {
+    "language": "eng-USA",
+    "topic": "GEN",
+    "audioFormat": {
+      "pcm": {
+        "sampleRateHz": 16000
+      }
+    },
+    "utteranceDetectionMode": "SINGLE",
+    "resultType": "FINAL",
+    "recognitionFlags": {
+      "autoPunctuate": true,
+      "filterProfanity": false,
+      "includeTokenization": true,
+      "maskLoadFailures": true,
+      "stallTimers": false
+    },
+    "noInputTimeoutMs": 0,
+    "utteranceEndSilenceMs": 2900,
+    "recognitionTimeoutMs": 0,
+    "speechDetectionSensitivity": ".75",
+    "maxHypotheses": 5,
+    "formatting": {
+      "options": {
+        "censor_profanities": true,
+        "censor_full_words": true
+      }
+    }
+  },
+  "resources": [
+    {
+      "externalReference": {
+        "type": "SPEAKER_PROFILE"
+      }
+    }
+  ],
+  "clientData": {
+    "client_version": "1.0",
+    "client_app": "xaas_asr_java_sample_client"
+  },
+  "endpointer": {
+    "sos_window_ms": 220,
+    "eos_window_ms": 1900,
+    "speech_detection_sensitivity": 20,
+    "bit_rate_type": 1,
+    "complexity": 3
+    }
+}

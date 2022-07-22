@@ -3,13 +3,15 @@ title: A sample java gRPC client for NLUaaS
 linkTitle: NLU
 ---
 
-This sample app uses the Mix3 NLUaaS gRPC API to make NLU requests.
+This sample app uses the [Mix NLUaaS gRPC API](https://docs.mix.nuance.com/nlu-grpc/v1/#nlu-as-a-service-grpc-api) to make NLU requests.
 
 [Download Jar](/downloads/nlu_client.jar)
 
+[Sample Params](/downloads/params.nlu.json)
+
 ## Usage Details
 
-```shell
+```
 $ java -jar build/libs/nlu_client.jar -H
 usage: java -jar nlu_client.jar [-H|--help] [-h|--hostname <value>] [-c|--configFile <value>]
                                 [-p|--params <value>] [-ti|--textInput <value>] [-m|--modelUrn <value>]
@@ -39,18 +41,14 @@ Arguments:
 
 ## Running an Intepretation Request
 
+### Pre-Requisites
+
 A deployed model will be required to perform an interpretation request. 
 
-Perform the following steps and provide the appropriate URN:
+{{% mix-project-pre-reqs %}}
 
-1. Create a Project, Locale: en-US
-2. Import `sample/order_coffee.trsx`
-3. Create a Build
-4. Create and deploy an Application Configuration, defining a context tag of `XAAS_TEST` 
-
-Check the [Quick Start](https://mix.nuance.com/v3/documentation/mix-starting/#quick-start) for more information.
-
-```shell
+### Interpreting a Single Text Input 
+```
 $ java -jar build/libs/nlu_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.nlu?=language=eng-USA" -ti "i'd like an americano"
 2020-09-13 19:26:26.996 INFO  Version: 1.0.0
 2020-09-13 19:26:27.091 INFO  CONNECTING (NLUAAS)...
@@ -112,4 +110,119 @@ $ java -jar build/libs/nlu_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix
   }
 }
 2020-09-13 19:26:29.277 INFO  INTERPRETING COMPLETE
+```
+
+### Interpreting Batch Text Input
+
+> Specify a file containing phrases to interpret for the `-ti` arg and include the `-b` arg
+
+```
+java -jar build/libs/nlu_client.jar -c config.my-config.json -m "urn:nuance-mix:tag:model/HELLO_WORLD/mix.nlu?=language=eng-USA" -b -ti sample/input.txt 
+2022-07-21 08:57:27.099 INFO    Version: 1.0.0
+2022-07-21 08:57:27.195 INFO    CONNECTING (NLUAAS)...
+2022-07-21 08:57:27.197 INFO    AUTHENTICATING... (NLUAAS)
+2022-07-21 08:57:27.216 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS)
+2022-07-21 08:57:27.739 INFO    Line #1: Hello World
+2022-07-21 08:57:28.069 INFO    INTERPRETING STARTING...
+2022-07-21 08:57:28.074 INFO    CONNECTED (NLU)
+ >>>>>>>>> {
+  "parameters": {
+    "interpretationResultType": "SINGLE_INTENT",
+    "maxInterpretations": 3
+  },
+  "model": {
+    "type": "SEMANTIC_MODEL",
+    "uri": "urn:nuance-mix:tag:model/HELLO_WORLD/mix.nlu?\u003dlanguage\u003deng-USA"
+  },
+  "clientData": {
+    "client_version": "1.0",
+    "client_app": "xaas_nlu_java_sample_client",
+    "transaction_id": "7e59dfa7-b583-4252-be4f-b7f9b400d0a1",
+    "subscriber_id": "664f758ae97543008195bdd6662888bf",
+    "user_id": "664f758ae97543008195bdd6662888bf",
+    "deviceModel": "x86_64"
+  },
+  "userId": "664f758ae97543008195bdd6662888bf",
+  "input": {
+    "text": "Hello World"
+  }
+}
+2022-07-21 08:57:28.096 INFO    Adding x-client-request-id 8e8ee7d8-0887-4ecb-9e42-1940ccc287f1
+2022-07-21 08:57:28.155 INFO    Received x-request-id 3624fc5d-18f0-98ae-b8c1-a8a990331ed2
+ <<<<<<<<< {
+  "status": {
+    "code": 200,
+    "message": "OK"
+  },
+  "result": {
+    "literal": "Hello World",
+    "interpretations": [{
+      "singleIntentInterpretation": {
+        "intent": "HI",
+        "confidence": 0.99999964,
+        "origin": "STATISTICAL"
+      }
+    }, {
+      "singleIntentInterpretation": {
+        "intent": "BYE",
+        "confidence": 1.953E-7,
+        "origin": "STATISTICAL"
+      }
+    }],
+    "formattedLiteral": "Hello World"
+  }
+}
+2022-07-21 08:57:28.716 INFO    INTERPRETING COMPLETE
+2022-07-21 08:57:28.717 INFO    Line #2: Goodbye Everyone
+2022-07-21 08:57:28.718 INFO    INTERPRETING STARTING...
+ >>>>>>>>> {
+  "parameters": {
+    "interpretationResultType": "SINGLE_INTENT",
+    "maxInterpretations": 3
+  },
+  "model": {
+    "type": "SEMANTIC_MODEL",
+    "uri": "urn:nuance-mix:tag:model/HELLO_WORLD/mix.nlu?\u003dlanguage\u003deng-USA"
+  },
+  "clientData": {
+    "client_version": "1.0",
+    "client_app": "xaas_nlu_java_sample_client",
+    "transaction_id": "a19d52da-0fe7-44d4-b555-93e9bcb96792",
+    "subscriber_id": "664f758ae97543008195bdd6662888bf",
+    "user_id": "664f758ae97543008195bdd6662888bf",
+    "deviceModel": "x86_64"
+  },
+  "userId": "664f758ae97543008195bdd6662888bf",
+  "input": {
+    "text": "Goodbye Everyone"
+  }
+}
+2022-07-21 08:57:28.720 INFO    Adding x-client-request-id 0bc6bfd1-d3de-47d7-bb0e-722a1e44ab54
+2022-07-21 08:57:28.754 INFO    Received x-request-id 499c2d78-0ee5-9031-8dd8-1ce77db7c5f7
+ <<<<<<<<< {
+  "status": {
+    "code": 200,
+    "message": "OK"
+  },
+  "result": {
+    "literal": "Goodbye Everyone",
+    "interpretations": [{
+      "singleIntentInterpretation": {
+        "intent": "BYE",
+        "confidence": 0.99999887,
+        "origin": "STATISTICAL"
+      }
+    }, {
+      "singleIntentInterpretation": {
+        "intent": "HI",
+        "confidence": 6.451E-7,
+        "origin": "STATISTICAL"
+      }
+    }],
+    "formattedLiteral": "Goodbye Everyone"
+  }
+}
+2022-07-21 08:57:28.797 INFO    INTERPRETING COMPLETE
+2022-07-21 08:57:28.799 INFO    Channel Shutdown
+2022-07-21 08:57:28.800 INFO    DISCONNECTED (NLUAAS)
 ```

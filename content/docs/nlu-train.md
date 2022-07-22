@@ -3,13 +3,15 @@ title: A sample java gRPC client for NLUaaS.Train
 linkTitle: NLU Train
 ---
 
-This sample app uses the Mix3 NLUaaS gRPC API to train (ie. create compiled) wordsets.
+This sample app uses the [Mix NLUaaS Training gRPC API](https://docs.mix.nuance.com/nlu-grpc/v1/#wordset-grpc-api) to train (ie. create compiled) wordsets.
 
 [Download Jar](/downloads/nlu_train.jar)
 
+[Sample Params](/downloads/params.nlu-train.json)
+
 ## Usage Details
 
-```shell
+```
 $ java -jar build/libs/nlu_train.jar -H
 Version: 1.0.0
 usage: java -jar nlu_train.jar [-H|--help] [-cmd|--command <value>] [-h|--hostname <value>]
@@ -32,12 +34,18 @@ Arguments:
  -ct,--connectTimeout <connectTimeout>   Time in ms to wait for connection. Default: 2000
  ```
 
-## Running an ASR.Train Request
+## Running an NLU.Train Request
+
+### Pre-Requisites
+
+A deployed NLU model will be required to perform the NLU training requests.
+
+{{% mix-project-pre-reqs %}}
 
 ### Compile Wordset
 
 ```
-$ java -jar build/libs/nlu_train.jar -c config.mix-beta.json -cmd compile
+$ java -jar build/libs/nlu_train.jar -c config.my-config.json -cmd compile
 2021-05-14 09:59:19.930 INFO    Version: 1.0.0
 2021-05-14 09:59:20.039 INFO    CONNECTING (NLUAAS.WORDSET)...
 2021-05-14 09:59:20.040 INFO    AUTHENTICATING... (NLUAAS.WORDSET)
@@ -73,7 +81,7 @@ $ java -jar build/libs/nlu_train.jar -c config.mix-beta.json -cmd compile
 ### Get Wordset Metadata
 
 ```
-$ java -jar build/libs/nlu_train.jar -c config.mix-beta.json -cmd metadata
+$ java -jar build/libs/nlu_train.jar -c config.my-config.json -cmd metadata
 2021-05-14 09:59:35.052 INFO    Version: 1.0.0
 2021-05-14 09:59:35.146 INFO    CONNECTING (NLUAAS.WORDSET)...
 2021-05-14 09:59:35.147 INFO    AUTHENTICATING... (NLUAAS.WORDSET)
@@ -92,7 +100,7 @@ $ java -jar build/libs/nlu_train.jar -c config.mix-beta.json -cmd metadata
 ### Delete Wordset
 
 ```
-$ java -jar build/libs/nlu_train.jar -c config.mix-beta.json -cmd delete
+$ java -jar build/libs/nlu_train.jar -c config.my-config.json -cmd delete
 2021-05-14 12:10:56.746 INFO    Version: 1.0.0
 2021-05-14 12:10:56.852 INFO    CONNECTING (NLUAAS.WORDSET)...
 2021-05-14 12:10:56.853 INFO    AUTHENTICATING... (NLUAAS.WORDSET)

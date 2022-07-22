@@ -3,25 +3,47 @@ title: A sample java gRPC client for DLGaaS
 linkTitle: DLG
 ---
 
-This sample app uses the Mix3 DLGaaS gRPC API to make DLG requests.
+This sample app uses the [Mix DLGaaS gRPC API](https://docs.mix.nuance.com/dialog-grpc/v1/#dialog-as-a-service-grpc-api) to make DLG requests.
 
 [Download Jar](/downloads/dlg_client.jar)
 
+[Sample Params](/downloads/params.dlg.json)
+
+[Wiremock Jar](/downloads/wiremock-standalone-2.27.2.jar)
+
 ## Usage Details
 
-Deployed models will be required to perform a dialog.
+```
+$ java -jar build/libs/dlg_client.jar -H
+Version: 1.0.0
+usage: java -jar dlg_client.jar [-H|--help] [-h|--hostname <value>] [-c|--configFile <value>]
+                                [-p|--params <value>] [-m|--modelUrn <modelUrn>] [-d|--dialogBackendEndpoint <value>]
+                                [-l|--logFile <value>] [-s|--insecure] [-tt|--trxnTimeout <value>]
 
-Perform the following steps and provide the appropriate URN:
+                                Use Nuance DLGaaS for end to end conversational AI experiences in your app
 
-1. Create a Project, Channel: Omni-Channel VA (All Modalities), Locale: en-US
-2. Import `sample/order_coffee.trsx`
-3. Import `sample/order_coffee.json`
-3. Create a Build (use ASR, NLU and Dialog)
-4. Create and deploy an Application Configuration, defining a context tag of `XAAS_TEST` 
+Arguments:
 
-Check the [Quick Start](https://mix.nuance.com/v3/documentation/mix-starting/#quick-start) for more information.
+ -H,--help                                            Print this help information
+ -h,--hostname <hostname>                             DLGaaS server URL host:port. Default: dlg.api.nuance.com:443
+ -d,--dialogBackendEndpoint <dialogBackendEndpoint>   host:port to use for the dialog backend endpoint. Default: localhost:8080
+ -c,--config <config>                                 config file containing client credentials (client_id and
+                                                      client_secret) and oauth server URL. Default: config.json
+ -p,--params <params>                                 json file containing dlg parameters. Default: params.json
+ -l,--logFile <logFile>                               log file path and name. Default: dlg.log
+ -s,--insecure                                        By default a secure TLS connection is established with DLGaaS. Specify this flag if connecting to a non-secure deployment of DLGaaS (e.g. on-prem). Default: false
+ -tt,--trxnTimeout <trxnTimeout>                      Time in ms to wait for dlg request to complete. Default: 20000
+ -ct,--connectTimeout <connectTimeout>                Time in ms to wait for connection. Default: 2000
+ -m,--modelUrn <modelUrn>                             Model URN for dialog context
+```
 
-### Dialog Backend Endpoint
+## Pre-Requisites
+
+A deployed Dialog model will be required to use this sample client.
+
+{{% mix-project-pre-reqs %}}
+
+### Dialog Data Access Backend Endpoint
 
 This client is capable of fetching data from a Data Provider upon a DLGaaS [Data Action (DA)](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#data-access-actions)
 or an [Escalation Action (EA)](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#transfer-actions).
@@ -30,8 +52,9 @@ By default it will request data with an HTTP GET request to http://localhost:808
 
 If/when the DLGaaS sends data with the DA/EA request it will add these as query parameters. 
 
-For example, when the DLG app receives this DA request from the DLGaaS:
-```shell{
+For example, when the DLG app receives this DA request from DLGaaS:
+```yaml
+{
   "payload": {
     "messages": [],
     "daAction": {
@@ -45,19 +68,22 @@ For example, when the DLG app receives this DA request from the DLGaaS:
 }
 ```
 
-it will perform an HTTP GET on this URL: http://localhost:8080/get_price?COFFEE_TYPE=expresso&COFFEE_SIZE=lg. 
+it will perform an HTTP GET on this URL: 
+```
+http://localhost:8080/get_price?COFFEE_TYPE=expresso&COFFEE_SIZE=lg
+```
 
 On success, HTTP status 200, the provider should provide a json response body containing the parameters to be sent back to the DLGaaS. 
 
 From the example above the Data Provider may return:
-```shell
+```yaml
 { 
     "price" : "3.98" 
 }
 ```
 
 The DLGaaS app will add each key value pair returned in the json to the RequestData along with the returnCode, in the response payload sent back:
-```shell
+```yaml
 {
   "payload": {
     "requested_data": {
@@ -77,7 +103,7 @@ A returnCode of 0 will be used for all successfull data provider responses and a
 
 This application comes bundled with a Data Provider using [WireMock](http://wiremock.org/docs/running-standalone/). Once it is running this DLG application can make GET requests to it whenever needed. Example, URL bindings and responses can be found in the "mappings" directory. Start the Data Provider server as follows.
 
-```shell
+```
 $ java -jar build/libs/wiremock-standalone-2.27.2.jar 
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
@@ -104,37 +130,11 @@ verbose:                      false
 
 By default, the application will send the data contained in `session_data` node in the `params.json` file.
 
-## Usage Details
-
-```shell
-$ java -jar build/libs/dlg_client.jar -H
-Version: 1.0.0
-usage: java -jar dlg_client.jar [-H|--help] [-h|--hostname <value>] [-c|--configFile <value>]
-                                [-p|--params <value>] [-m|--modelUrn <modelUrn>] [-d|--dialogBackendEndpoint <value>]
-                                [-l|--logFile <value>] [-s|--insecure] [-tt|--trxnTimeout <value>]
-
-                                Use Nuance DLGaaS for end to end conversational AI experiences in your app
-
-Arguments:
-
- -H,--help                                            Print this help information
- -h,--hostname <hostname>                             DLGaaS server URL host:port. Default: dlg.api.nuance.com:443
- -d,--dialogBackendEndpoint <dialogBackendEndpoint>   host:port to use for the dialog backend endpoint. Default: localhost:8080
- -c,--config <config>                                 config file containing client credentials (client_id and
-                                                      client_secret) and oauth server URL. Default: config.json
- -p,--params <params>                                 json file containing dlg parameters. Default: params.json
- -l,--logFile <logFile>                               log file path and name. Default: dlg.log
- -s,--insecure                                        By default a secure TLS connection is established with DLGaaS. Specify this flag if connecting to a non-secure deployment of DLGaaS (e.g. on-prem). Default: false
- -tt,--trxnTimeout <trxnTimeout>                      Time in ms to wait for dlg request to complete. Default: 20000
- -ct,--connectTimeout <connectTimeout>                Time in ms to wait for connection. Default: 2000
- -m,--modelUrn <modelUrn>                             Model URN for dialog context
-```
-
 ## Running a Dialog Conversation
 
-### With**out** Data Access
+### Without Data Access
 
-```shell
+```
 $ java -jar build/libs/dlg_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.dialog"
 2020-09-14 01:23:28.849 INFO  Version: 1.0.0
 2020-09-14 01:23:28.935 INFO  AUTHENTICATING...
@@ -154,7 +154,7 @@ medium
 
 Set `triggerDataAction: true` in `params.json`.
 
-```shell
+```
 $ java -jar build/libs/dlg_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.dialog"
 2020-09-14 01:10:50.682 INFO  Version: 1.0.0
 2020-09-14 01:10:50.773 INFO  AUTHENTICATING...
@@ -184,7 +184,7 @@ i'd like a large latte
 
 Set `triggerDataAction: true` in `params.json`.
 
-```shell
+```
 $ java -jar build/libs/dlg_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.dialog"
 2020-09-14 01:18:30.715 INFO  Version: 1.0.0
 2020-09-14 01:18:30.808 INFO  AUTHENTICATING...

@@ -1,0 +1,11 @@
+{
+    "parameters": {
+        "interpretationInputLoggingMode": "PLAINTEXT",
+        "interpretationResultType": "SINGLE_INTENT",
+        "maxInterpretations": 3
+    },
+    "clientData": {
+        "client_version": "1.0",
+        "client_app": "xaas_nlu_java_sample_client"
+    }
+}
