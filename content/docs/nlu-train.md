@@ -45,72 +45,92 @@ A deployed NLU model will be required to perform the NLU training requests.
 ### Compile Wordset
 
 ```
-$ java -jar build/libs/nlu_train.jar -c config.my-config.json -cmd compile
-2021-05-14 09:59:19.930 INFO    Version: 1.0.0
-2021-05-14 09:59:20.039 INFO    CONNECTING (NLUAAS.WORDSET)...
-2021-05-14 09:59:20.040 INFO    AUTHENTICATING... (NLUAAS.WORDSET)
-2021-05-14 09:59:20.044 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS.WORDSET)
-2021-05-14 09:59:20.923 INFO    CONNECTING (NLUAAS.WORDSET)...
-2021-05-14 09:59:20.935 INFO     >>>>>>>>> {
-  "wordset": "{\"NAME\":[{\"literal\":\"Spiderman\",\"canonical\":\"Spider-man\",\"spoken\":[\"spiderman\"]}, {\"literal\":\"Vision\",\"canonical\":\"Vi-sion\",\"spoken\":[\"vision\"]}]}",
+java -jar build/libs/nlu_train.jar -c config.mix-sample-app.json -p params.nlu-train.json -cmd compile
+2022-07-25 15:08:04.673 INFO    Version: 1.0.0
+2022-07-25 15:08:04.776 INFO    CONNECTING ...
+2022-07-25 15:08:04.777 INFO    AUTHENTICATING... 
+2022-07-25 15:08:05.309 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED 
+2022-07-25 15:08:06.132 INFO    CONNECTED 
+2022-07-25 15:08:06.255 INFO     >>>>>>>>> {
+  "wordset": "{\"COFFEE_SIZE\":[{\"canonical\":\"x-sm\",\"literal\":\"short\"},{\"canonical\":\"sm\",\"literal\":\"tall\"},{\"canonical\":\"md\",\"literal\":\"grandè\"},{\"canonical\":\"lg\",\"literal\":\"venti\"},{\"canonical\":\"x-lg\",\"literal\":\"trenta\"}]}",
   "companionArtifactReference": {
-    "uri": "urn:nuance-mix:tag:model/HELLO_WORLD/mix.nlu?\u003dlanguage\u003deng-USA"
+    "uri": "urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.nlu?\u003dlanguage\u003deng-USA"
   },
   "targetArtifactReference": {
-    "uri": "urn:nuance-mix:tag:wordset:lang/HELLO_WORLD/EXTRA_NAMES/eng-USA/mix.nlu"
+    "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.nlu"
   },
   "metadata": {
     "tenant": "nuance",
-    "project": "test",
+    "project": "quick start coffee app",
     "client_version": "1.0.0"
   },
   "clientData": {
-    "transaction_id": "7ea4f330-3926-4de1-9ce8-dc8868082851",
-    "subscriber_id": "4a9817feea354f6aa39acf02ec723794",
-    "user_id": "4a9817feea354f6aa39acf02ec723794",
+    "transaction_id": "4c922bdf-b158-4e25-a340-c3188c75b4c2",
+    "subscriber_id": "54d58d7ad7db42c1804a2ab2f827f87c",
+    "user_id": "54d58d7ad7db42c1804a2ab2f827f87c",
     "deviceModel": "x86_64"
   }
 }
-2021-05-14 09:59:22.477 INFO    CONNECTED (NLU.WORDSET)
-2021-05-14 09:59:23.323 WARNING  <<<<<<<<< {"statusCode":"OK"}
-2021-05-14 09:59:23.324 INFO     <<<<<<<<< {"status":"JOB_STATUS_PROCESSING"}
-2021-05-14 09:59:27.327 WARNING  <<<<<<<<< {"statusCode":"OK"}
-2021-05-14 09:59:27.329 INFO     <<<<<<<<< {"status":"JOB_STATUS_COMPLETE"}
+2022-07-25 15:08:06.265 INFO    Adding x-client-request-id 059f4d2b-782c-420d-bef0-eb2e1f54703c
+2022-07-25 15:08:06.345 INFO    Received x-request-id 01a5a540-5bd4-992d-8253-662003850482
+2022-07-25 15:08:06.378 WARNING  <<<<<<<<< {"statusCode":"OK"}
+2022-07-25 15:08:06.379 INFO     <<<<<<<<< {"status":"JOB_STATUS_PROCESSING"}
+2022-07-25 15:08:07.083 WARNING  <<<<<<<<< {"statusCode":"OK"}
+2022-07-25 15:08:07.084 INFO     <<<<<<<<< {"status":"JOB_STATUS_COMPLETE"}
+2022-07-25 15:08:07.086 INFO    Channel Shutdown
+2022-07-25 15:08:07.087 INFO    DISCONNECTED
 ```
+
+> This compiled wordset can be referenced in the [`nlu sample client`](/docs/nlu) using the following params file `resources` entry:
+> 
+>  ```yaml
+> {
+>   "externalReference": {
+>     "type": "COMPILED_WORDSET",
+>     "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.nlu"
+>   }
+> }
+>  ```
 
 ### Get Wordset Metadata
 
 ```
-$ java -jar build/libs/nlu_train.jar -c config.my-config.json -cmd metadata
-2021-05-14 09:59:35.052 INFO    Version: 1.0.0
-2021-05-14 09:59:35.146 INFO    CONNECTING (NLUAAS.WORDSET)...
-2021-05-14 09:59:35.147 INFO    AUTHENTICATING... (NLUAAS.WORDSET)
-2021-05-14 09:59:35.150 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS.WORDSET)
-2021-05-14 09:59:35.796 INFO    CONNECTING (NLUAAS.WORDSET)...
+java -jar build/libs/nlu_train.jar -c config.mix-sample-app.json -p params.nlu-train.json -cmd metadata
+2022-07-25 15:09:39.589 INFO    Version: 1.0.0
+2022-07-25 15:09:39.716 INFO    CONNECTING ...
+2022-07-25 15:09:39.721 INFO    AUTHENTICATING... 
+2022-07-25 15:09:39.740 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED 
+2022-07-25 15:09:40.884 INFO    CONNECTED 
  >>>>>>>>> {
   "artifactReference": {
-    "uri": "urn:nuance-mix:tag:wordset:lang/HELLO_WORLD/EXTRA_NAMES/eng-USA/mix.nlu"
+    "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.nlu"
   }
 }
-2021-05-14 09:59:36.481 INFO    CONNECTED (NLU.WORDSET)
-2021-05-14 09:59:36.714 WARNING  <<<<<<<<< {"statusCode":"OK"}
-2021-05-14 09:59:36.715 INFO     <<<<<<<<< {"x_nuance_companion_checksum_sha256":"11bf71c9e89a6d68c278ae9d5009d679e192e4b83048852cc1bc65d71e64b7c9","x_nuance_compiled_wordset_last_update":"2021-05-14T13:59:26.992Z","project":"test","client_version":"1.0.0","tenant":"nuance","x_nuance_wordset_content_checksum_sha256":"6aee26b1c5f902db43bb4c85aeca80c06aa332cf68eeaefc094ef250802bee1c","x_nuance_compiled_wordset_checksum_sha256":"0440bdc06815de9d17f07e5b990dcdbd22bc33ea53cd20e118e0c2c27f49ee7f"}
+2022-07-25 15:09:41.003 INFO    Adding x-client-request-id e78bfc50-c955-4107-a40f-7d39f64a518d
+2022-07-25 15:09:41.084 INFO    Received x-request-id e10243a0-a6b6-9f18-9f35-37ebd44110e0
+2022-07-25 15:09:41.110 WARNING  <<<<<<<<< {"statusCode":"OK"}
+2022-07-25 15:09:41.111 INFO     <<<<<<<<< {"x_nuance_companion_checksum_sha256":"48da00e644d91c367180d6f8470598fa43b9d9b1683e7b5c5ad5dea3598918d9","x_nuance_compiled_wordset_last_update":"2022-07-25T19:08:07.001Z","project":"quick start coffee app","client_version":"1.0.0","tenant":"nuance","x_nuance_wordset_content_checksum_sha256":"e9efec369e8e1d6eb4e23b1f5f0d01f89da02a02dbed39cab911889c749f434b","x_nuance_compiled_wordset_checksum_sha256":"7df857dc2b248d9f96008ca4ce9366b3aee84d83df44df087cd92f3c291b1be9"}
+2022-07-25 15:09:41.113 INFO    Channel Shutdown
+2022-07-25 15:09:41.113 INFO    DISCONNECTED
 ```
 
 ### Delete Wordset
 
 ```
-$ java -jar build/libs/nlu_train.jar -c config.my-config.json -cmd delete
-2021-05-14 12:10:56.746 INFO    Version: 1.0.0
-2021-05-14 12:10:56.852 INFO    CONNECTING (NLUAAS.WORDSET)...
-2021-05-14 12:10:56.853 INFO    AUTHENTICATING... (NLUAAS.WORDSET)
-2021-05-14 12:10:57.400 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS.WORDSET)
-2021-05-14 12:10:58.073 INFO    CONNECTING (NLUAAS.WORDSET)...
+java -jar build/libs/nlu_train.jar -c config.mix-sample-app.json -p params.nlu-train.json -cmd delete
+2022-07-25 15:11:10.842 INFO    Version: 1.0.0
+2022-07-25 15:11:10.934 INFO    CONNECTING ...
+2022-07-25 15:11:10.936 INFO    AUTHENTICATING... 
+2022-07-25 15:11:10.951 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED 
+2022-07-25 15:11:11.826 INFO    CONNECTED 
  >>>>>>>>> {
   "artifactReference": {
-    "uri": "urn:nuance-mix:tag:wordset:lang/HELLO_WORLD/EXTRA_NAMES/eng-USA/mix.nlu"
+    "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.nlu"
   }
 }
-2021-05-14 12:10:59.388 INFO    CONNECTED (NLU.WORDSET)
-2021-05-14 12:10:59.549 WARNING  <<<<<<<<< {"statusCode":"OK"}
+2022-07-25 15:11:11.937 INFO    Adding x-client-request-id 1bb94dde-7e13-41ec-a95b-e32f580de080
+2022-07-25 15:11:12.005 INFO    Received x-request-id 4a41db1f-c034-9393-9775-01ec98bd066d
+2022-07-25 15:11:12.065 WARNING  <<<<<<<<< {"statusCode":"OK"}
+2022-07-25 15:11:12.067 INFO    Channel Shutdown
+2022-07-25 15:11:12.068 INFO    DISCONNECTED
 ```

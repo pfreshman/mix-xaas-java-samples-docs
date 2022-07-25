@@ -3,9 +3,11 @@ title: A sample java gRPC client for TTSaaS.Storage
 linkTitle: TTS Storage
 ---
 
-This sample app uses the [Mix TTSaaS Storage gRPC API](https://docs.mix.nuance.com/tts-grpc/v1/#storage-api) to upload storage.
+This sample app uses the [Mix TTSaaS Storage gRPC API](https://docs.mix.nuance.com/tts-grpc/v1/#storage-api) to upload custom TTS resources to Mix storage.
 
 [Download Jar](/downloads/tts_storage.jar)
+
+> **Alert**: Custom TTS resources are typically provided as part of a Professional Services engagement and are delivered by either Nuance Professional Services or Engineering teams.
 
 ## Usage Details
 
@@ -48,7 +50,7 @@ Arguments:
 
 ### Upload a Text Ruleset
 ```
-$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.json  -tp TEXT_RULESET -f ruleset.txt -t 12345 -name parms -lc en-US -ct 60000
+$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c config.mix-sample-app.json  -tp TEXT_RULESET -f ruleset.txt -t MY_CUSTOM_TTS -name COFFEE_APP_ruleset -lc en-US -ct 60000
 2021-10-14 12:39:53.580 INFO    Version: 1.0.0
 2021-10-14 12:39:53.740 INFO    CONNECTING ...
 2021-10-14 12:39:53.742 INFO    AUTHENTICATING...
@@ -56,7 +58,7 @@ $ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.jso
 2021-10-14 12:39:56.930 INFO    CONNECTED
 2021-10-14 12:39:57.045 INFO    Adding x-client-request-id 396d03c3-f81b-44a4-82f5-9f38f4db1407
 2021-10-14 12:39:57.172 INFO     <<<<<<<<< {"statusCode":"OK"}
-2021-10-14 12:39:57.177 INFO     <<<<<<<<< {"status":{"statusCode":"OK"},"uri":"urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?type\u003dtextruleset"}
+2021-10-14 12:39:57.177 INFO     <<<<<<<<< {"status":{"statusCode":"OK"},"uri":"urn:nuance-mix:tag:tuning:lang/MY_CUSTOM_TTS/COFFEE_APP_ruleset/en-us/mix.tts?type\u003dtextruleset"}
 2021-10-14 12:39:57.185 INFO    Channel Shutdown
 2021-10-14 12:39:57.185 INFO    DISCONNECTED
 ```
@@ -64,8 +66,8 @@ $ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.jso
 ### Upload a User Dictionary
 
 ```
-$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.json  -tp USER_DICTIONARY -f hahaha.dcb -t 12345
- -name parms -lc en-US -ct 60000
+$ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c config.mix-sample-app.json  -tp USER_DICTIONARY -f coffee_app.dcb -t MY_CUSTOM_TTS
+ -name COFFEE_APP_dict -lc en-US -ct 60000
 2021-10-15 09:40:55.987 INFO    Version: 1.0.0
 2021-10-15 09:40:56.082 INFO    CONNECTING ...
 2021-10-15 09:40:56.083 INFO    AUTHENTICATING...
@@ -73,7 +75,7 @@ $ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.jso
 2021-10-15 09:40:58.495 INFO    CONNECTED
 2021-10-15 09:40:58.608 INFO    Adding x-client-request-id 33878e36-3fbe-45af-aa75-f06c4da7b23b
 2021-10-15 09:40:58.787 INFO     <<<<<<<<< {"statusCode":"OK"}
-2021-10-15 09:40:58.790 INFO     <<<<<<<<< {"status":{"statusCode":"OK"},"uri":"urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?type\u003duserdict"}
+2021-10-15 09:40:58.790 INFO     <<<<<<<<< {"status":{"statusCode":"OK"},"uri":"urn:nuance-mix:tag:tuning:lang/MY_CUSTOM_TTS/COFFEE_APP_dict/en-us/mix.tts?type\u003duserdict"}
 2021-10-15 09:40:58.796 INFO    Channel Shutdown
 2021-10-15 09:40:58.797 INFO    DISCONNECTED
 ```
@@ -81,14 +83,14 @@ $ java -jar build/libs/tts_storage.jar -cmd UPLOAD -c ../../config.my-config.jso
 ### Delete a Previously Uploaded User Dictionary
 
 ```
-$ java -jar build/libs/tts_storage.jar -cmd DELETE -c ../../config.my-config.json -tp USER_DICTIONARY -lc en-US -u urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?type\u003duserdict
+$ java -jar build/libs/tts_storage.jar -cmd DELETE -c config.mix-sample-app.json -tp USER_DICTIONARY -lc en-US -u urn:nuance-mix:tag:tuning:lang/MY_CUSTOM_TTS/COFFEE_APP_dict/en-us/mix.tts?type\u003duserdict
 2021-10-15 09:42:35.049 INFO    Version: 1.0.0
 2021-10-15 09:42:35.139 INFO    CONNECTING ...
 2021-10-15 09:42:35.141 INFO    AUTHENTICATING...
 2021-10-15 09:42:36.273 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED
 2021-10-15 09:42:37.821 INFO    CONNECTED
  >>>>>>>>> {
-  "uri": "urn:nuance-mix:tag:tuning:lang/12345/parms/en-us/mix.tts?typeu003duserdict"
+  "uri": "urn:nuance-mix:tag:tuning:lang/MY_CUSTOM_TTS/COFFEE_APP_dict/en-us/mix.tts?typeu003duserdict"
 }
 2021-10-15 09:42:37.910 INFO    Adding x-client-request-id eaa9bc30-cb1d-4073-bc61-41dd04f803d0
 2021-10-15 09:42:38.023 INFO     <<<<<<<<< {"statusCode":"OK"}

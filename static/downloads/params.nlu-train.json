@@ -1,17 +1,17 @@
 {
     "target_artifact_reference": {
-        "uri": "urn:nuance-mix:tag:wordset:lang/XAAS_TEST/EXTRA_NAMES/eng-USA/mix.nlu"
+        "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.nlu"
     },
     "artifact_reference": {
-        "uri": "urn:nuance-mix:tag:wordset:lang/XAAS_TEST/EXTRA_NAMES/eng-USA/mix.nlu"
+        "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.nlu"
     },
     "companion_artifact_reference": {
-        "uri": "urn:nuance-mix:tag:model/XAAS_TEST/mix.nlu?=language=eng-USA"
+        "uri": "urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.nlu?=language=eng-USA"
     },
-    "wordset": "{\"NAME\":[{\"literal\":\"Spiderman\",\"canonical\":\"Spider-man\",\"spoken\":[\"spiderman\"]}, {\"literal\":\"Vision\",\"canonical\":\"Vi-sion\",\"spoken\":[\"vision\"]}]}",
+    "wordset": "{\"COFFEE_SIZE\":[{\"canonical\":\"x-sm\",\"literal\":\"short\"},{\"canonical\":\"sm\",\"literal\":\"tall\"},{\"canonical\":\"md\",\"literal\":\"grandè\"},{\"canonical\":\"lg\",\"literal\":\"venti\"},{\"canonical\":\"x-lg\",\"literal\":\"trenta\"}]}",
     "metadata": {
         "tenant": "nuance",
-        "project": "test",
+        "project": "quick start coffee app",
         "client_version": "1.0.0"
     },
     "client_data": {}

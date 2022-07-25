@@ -7,7 +7,7 @@ This sample app uses the [Mix NLUaaS gRPC API](https://docs.mix.nuance.com/nlu-g
 
 [Download Jar](/downloads/nlu_client.jar)
 
-[Sample Params](/downloads/params.nlu.json)
+[Quick Start Coffee App Sample NLU Params](/downloads/params.nlu.quick-start-coffee-sample.json) (_contains inline wordsets_)
 
 ## Usage Details
 
@@ -26,7 +26,7 @@ Arguments:
  -h,--hostname <hostname>                NLUaaS server URL host:port. Default: nlu.api.nuance.com:443
  -m,--modelUrn <modelUrn>                NLU Model URN with the following schema:
                                          urn:nuance-mix:tag:model/<Context Tag>/mix.nlu?=language=<Language Code> (e.g.
-                                         urn:nuance-mix:tag:model/XAAS_TEST/mix.nlu?=language=eng-USA). Default:
+                                         urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.nlu?=language=eng-USA). Default:
  -ti,--textInput <textInput>             Text to perform interpretation on. If batchMode is enabled, the client treats this as a path to a file. Default:
  -c,--config <config>                    config file containing client credentials (client_id and
                                          client_secret) and oauth server URL. Default: config.json
@@ -48,14 +48,15 @@ A deployed model will be required to perform an interpretation request.
 {{% mix-project-pre-reqs %}}
 
 ### Interpreting a Single Text Input 
+
 ```
-$ java -jar build/libs/nlu_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.nlu?=language=eng-USA" -ti "i'd like an americano"
-2020-09-13 19:26:26.996 INFO  Version: 1.0.0
-2020-09-13 19:26:27.091 INFO  CONNECTING (NLUAAS)...
-2020-09-13 19:26:27.092 INFO  AUTHENTICATING... (NLUAAS)
-2020-09-13 19:26:27.869 INFO  AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS)
-2020-09-13 19:26:28.277 INFO  INTERPRETING STARTING...
-2020-09-13 19:26:28.281 INFO  CONNECTING (NLUAAS)...
+java -jar build/libs/nlu_client.jar -c config.mix-sample-app.json -p params.nlu.quick-start-coffee-sample.json -m urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.nlu?=language=eng-USA -ti "I'd like a trenta Caffe Misto"
+2022-07-25 14:11:34.775 INFO    Version: 1.0.0
+2022-07-25 14:11:34.883 INFO    CONNECTING (NLUAAS)...
+2022-07-25 14:11:34.884 INFO    AUTHENTICATING... (NLUAAS)
+2022-07-25 14:11:34.901 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS)
+2022-07-25 14:11:36.028 INFO    INTERPRETING STARTING...
+2022-07-25 14:11:36.034 INFO    CONNECTED (NLU)
  >>>>>>>>> {
   "parameters": {
     "interpretationResultType": "SINGLE_INTENT",
@@ -63,166 +64,169 @@ $ java -jar build/libs/nlu_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix
   },
   "model": {
     "type": "SEMANTIC_MODEL",
-    "uri": "urn:nuance-mix:tag:model/XAAS_TEST/mix.nlu?\u003dlanguage\u003deng-USA"
+    "uri": "urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.nlu?\u003dlanguage\u003deng-USA"
   },
+  "resources": [{
+    "inlineWordset": "{\"COFFEE_TYPE\":[{\"canonical\":\"Macchiato\",\"literal\":\"Macchiato\"},{\"canonical\":\"Caffè Misto\",\"literal\":\"Caffè Misto\"},{\"canonical\":\"Caffè Misto\",\"literal\":\"Caffe Misto\"},{\"canonical\":\"Cinnamon Dolce Latte\",\"literal\":\"Cinnamon Dolce Latte\"}]}"
+  }, {
+    "inlineWordset": "{\"COFFEE_SIZE\":[{\"canonical\":\"x-sm\",\"literal\":\"short\"},{\"canonical\":\"sm\",\"literal\":\"tall\"},{\"canonical\":\"md\",\"literal\":\"grandè\"},{\"canonical\":\"lg\",\"literal\":\"venti\"},{\"canonical\":\"x-lg\",\"literal\":\"trenta\"}]}"
+  }],
   "clientData": {
-    "transaction_id": "571b5bb8-eddc-4cae-bf84-bcabf3f94fd6",
-    "subscriber_id": "55bad684ea9f4b6686f4c4d8afde5f35",
-    "user_id": "55bad684ea9f4b6686f4c4d8afde5f35",
+    "client_version": "1.0",
     "client_app": "xaas_nlu_java_sample_client",
-    "deviceModel": "x86_64",
-    "client_version": "1.0"
+    "transaction_id": "73a4b90c-24f6-43b8-b9fb-cbe088fa133f",
+    "subscriber_id": "54d58d7ad7db42c1804a2ab2f827f87c",
+    "user_id": "54d58d7ad7db42c1804a2ab2f827f87c",
+    "deviceModel": "x86_64"
   },
-  "userId": "55bad684ea9f4b6686f4c4d8afde5f35",
+  "userId": "54d58d7ad7db42c1804a2ab2f827f87c",
   "input": {
-    "text": "i\u0027d like an americano"
+    "text": "I\u0027d like a trenta Caffe Misto"
   }
 }
-2020-09-13 19:26:28.684 INFO  CONNECTED (NLU)
+2022-07-25 14:11:36.057 INFO    Adding x-client-request-id ad560787-5626-469b-8a94-221563d4ba07
+2022-07-25 14:11:36.136 INFO    Received x-request-id ded0beaf-f504-9701-b46d-44b8d17b9bcf
  <<<<<<<<< {
   "status": {
     "code": 200,
     "message": "OK"
   },
   "result": {
-    "literal": "i\u0027d like an americano",
+    "literal": "I\u0027d like a trenta Caffe Misto",
     "interpretations": [{
       "singleIntentInterpretation": {
         "intent": "ORDER_COFFEE",
         "confidence": 1.0,
-        "origin": "STATISTICAL",
+        "origin": "GRAMMAR",
         "entities": {
           "COFFEE_TYPE": {
             "entities": [{
               "textRange": {
-                "startIndex": 12,
-                "endIndex": 21
+                "startIndex": 18,
+                "endIndex": 29
               },
-              "confidence": 0.9480499,
-              "origin": "STATISTICAL",
-              "stringValue": "americano",
-              "literal": "americano"
+              "confidence": 1.0,
+              "origin": "GRAMMAR",
+              "stringValue": "Caffè Misto",
+              "literal": "Caffe Misto",
+              "formattedLiteral": "Caffe Misto",
+              "formattedTextRange": {
+                "startIndex": 18,
+                "endIndex": 29
+              }
+            }]
+          },
+          "COFFEE_SIZE": {
+            "entities": [{
+              "textRange": {
+                "startIndex": 11,
+                "endIndex": 17
+              },
+              "confidence": 1.0,
+              "origin": "GRAMMAR",
+              "stringValue": "x-lg",
+              "literal": "trenta",
+              "formattedLiteral": "trenta",
+              "formattedTextRange": {
+                "startIndex": 11,
+                "endIndex": 17
+              }
             }]
           }
         }
       }
-    }]
+    }],
+    "formattedLiteral": "I\u0027d like a trenta Caffe Misto"
   }
 }
-2020-09-13 19:26:29.277 INFO  INTERPRETING COMPLETE
+2022-07-25 14:11:36.243 INFO    INTERPRETING COMPLETE
+2022-07-25 14:11:36.245 INFO    Channel Shutdown
+2022-07-25 14:11:36.246 INFO    DISCONNECTED (NLUAAS)
 ```
 
-### Interpreting Batch Text Input
-
-> Specify a file containing phrases to interpret for the `-ti` arg and include the `-b` arg
-
+### Interpreting Text Input from Batch File
 ```
-java -jar build/libs/nlu_client.jar -c config.my-config.json -m "urn:nuance-mix:tag:model/HELLO_WORLD/mix.nlu?=language=eng-USA" -b -ti sample/input.txt 
-2022-07-21 08:57:27.099 INFO    Version: 1.0.0
-2022-07-21 08:57:27.195 INFO    CONNECTING (NLUAAS)...
-2022-07-21 08:57:27.197 INFO    AUTHENTICATING... (NLUAAS)
-2022-07-21 08:57:27.216 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS)
-2022-07-21 08:57:27.739 INFO    Line #1: Hello World
-2022-07-21 08:57:28.069 INFO    INTERPRETING STARTING...
-2022-07-21 08:57:28.074 INFO    CONNECTED (NLU)
+java -jar build/libs/nlu_client.jar -c config.mix-sample-app.json -p params.nlu.quick-start-coffee-sample.json -m urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.nlu?=language=eng-USA -ti input.txt -b
+2022-07-25 14:02:29.539 INFO    Version: 1.0.0
+2022-07-25 14:02:29.642 INFO    CONNECTING (NLUAAS)...
+2022-07-25 14:02:29.644 INFO    AUTHENTICATING... (NLUAAS)
+2022-07-25 14:02:29.663 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (NLUAAS)
+2022-07-25 14:02:30.195 INFO    Line #1: I want a Large Iced Latte
+2022-07-25 14:02:30.850 INFO    INTERPRETING STARTING...
+2022-07-25 14:02:30.855 INFO    CONNECTED (NLU)
  >>>>>>>>> {
   "parameters": {
-    "interpretationResultType": "SINGLE_INTENT",
-    "maxInterpretations": 3
-  },
-  "model": {
-    "type": "SEMANTIC_MODEL",
-    "uri": "urn:nuance-mix:tag:model/HELLO_WORLD/mix.nlu?\u003dlanguage\u003deng-USA"
-  },
-  "clientData": {
-    "client_version": "1.0",
-    "client_app": "xaas_nlu_java_sample_client",
-    "transaction_id": "7e59dfa7-b583-4252-be4f-b7f9b400d0a1",
-    "subscriber_id": "664f758ae97543008195bdd6662888bf",
-    "user_id": "664f758ae97543008195bdd6662888bf",
-    "deviceModel": "x86_64"
-  },
-  "userId": "664f758ae97543008195bdd6662888bf",
-  "input": {
-    "text": "Hello World"
+    << ...input redacted for brevity... >>
   }
 }
-2022-07-21 08:57:28.096 INFO    Adding x-client-request-id 8e8ee7d8-0887-4ecb-9e42-1940ccc287f1
-2022-07-21 08:57:28.155 INFO    Received x-request-id 3624fc5d-18f0-98ae-b8c1-a8a990331ed2
+2022-07-25 14:02:30.874 INFO    Adding x-client-request-id effd2dac-9da7-414e-9a28-fdccb725fe3e
+2022-07-25 14:02:30.937 INFO    Received x-request-id 26e755e3-b825-92a9-908a-2c36596617c0
  <<<<<<<<< {
   "status": {
     "code": 200,
     "message": "OK"
   },
   "result": {
-    "literal": "Hello World",
+    "literal": "I want a Large Iced Latte",
     "interpretations": [{
       "singleIntentInterpretation": {
-        "intent": "HI",
-        "confidence": 0.99999964,
-        "origin": "STATISTICAL"
-      }
-    }, {
-      "singleIntentInterpretation": {
-        "intent": "BYE",
-        "confidence": 1.953E-7,
-        "origin": "STATISTICAL"
+        << ...response redacted for brevity... >>
       }
     }],
-    "formattedLiteral": "Hello World"
+    "formattedLiteral": "I want a Large Iced Latte"
   }
 }
-2022-07-21 08:57:28.716 INFO    INTERPRETING COMPLETE
-2022-07-21 08:57:28.717 INFO    Line #2: Goodbye Everyone
-2022-07-21 08:57:28.718 INFO    INTERPRETING STARTING...
+2022-07-25 14:02:31.458 INFO    INTERPRETING COMPLETE
+2022-07-25 14:02:31.459 INFO    Line #2: Please give me an americano
+2022-07-25 14:02:31.460 INFO    INTERPRETING STARTING...
  >>>>>>>>> {
   "parameters": {
-    "interpretationResultType": "SINGLE_INTENT",
-    "maxInterpretations": 3
-  },
-  "model": {
-    "type": "SEMANTIC_MODEL",
-    "uri": "urn:nuance-mix:tag:model/HELLO_WORLD/mix.nlu?\u003dlanguage\u003deng-USA"
-  },
-  "clientData": {
-    "client_version": "1.0",
-    "client_app": "xaas_nlu_java_sample_client",
-    "transaction_id": "a19d52da-0fe7-44d4-b555-93e9bcb96792",
-    "subscriber_id": "664f758ae97543008195bdd6662888bf",
-    "user_id": "664f758ae97543008195bdd6662888bf",
-    "deviceModel": "x86_64"
-  },
-  "userId": "664f758ae97543008195bdd6662888bf",
-  "input": {
-    "text": "Goodbye Everyone"
+    << ...input redacted for brevity... >>
   }
 }
-2022-07-21 08:57:28.720 INFO    Adding x-client-request-id 0bc6bfd1-d3de-47d7-bb0e-722a1e44ab54
-2022-07-21 08:57:28.754 INFO    Received x-request-id 499c2d78-0ee5-9031-8dd8-1ce77db7c5f7
+2022-07-25 14:02:31.464 INFO    Adding x-client-request-id 1893f8dd-1932-4d58-b9c1-7c26b1fa24d7
+2022-07-25 14:02:31.496 INFO    Received x-request-id 396379e7-3e34-9fd3-a794-193caeba771d
  <<<<<<<<< {
   "status": {
     "code": 200,
     "message": "OK"
   },
   "result": {
-    "literal": "Goodbye Everyone",
+    "literal": "Please give me an americano",
     "interpretations": [{
       "singleIntentInterpretation": {
-        "intent": "BYE",
-        "confidence": 0.99999887,
-        "origin": "STATISTICAL"
-      }
-    }, {
-      "singleIntentInterpretation": {
-        "intent": "HI",
-        "confidence": 6.451E-7,
-        "origin": "STATISTICAL"
+        << ...response redacted for brevity... >>
       }
     }],
-    "formattedLiteral": "Goodbye Everyone"
+    "formattedLiteral": "Please give me an americano"
   }
 }
-2022-07-21 08:57:28.797 INFO    INTERPRETING COMPLETE
-2022-07-21 08:57:28.799 INFO    Channel Shutdown
-2022-07-21 08:57:28.800 INFO    DISCONNECTED (NLUAAS)
+2022-07-25 14:02:31.593 INFO    INTERPRETING COMPLETE
+2022-07-25 14:02:31.594 INFO    Line #3: I would like a small Coffee
+2022-07-25 14:02:31.638 INFO    INTERPRETING STARTING...
+ >>>>>>>>> {
+  "parameters": {
+    << ...input redacted for brevity... >>
+  }
+}
+2022-07-25 14:02:31.642 INFO    Adding x-client-request-id 03ba6b68-dd6d-4749-8b38-4c15203d1c53
+2022-07-25 14:02:31.680 INFO    Received x-request-id 6a9c4474-29e3-9f6b-a385-845b5c612edc
+ <<<<<<<<< {
+  "status": {
+    "code": 200,
+    "message": "OK"
+  },
+  "result": {
+    "literal": "I would like a small Coffee",
+    "interpretations": [{
+      "singleIntentInterpretation": {
+        << ...response redacted for brevity... >>
+      }
+    }],
+    "formattedLiteral": "I would like a small Coffee"
+  }
+}
+2022-07-25 14:02:31.775 INFO    INTERPRETING COMPLETE
+2022-07-25 14:02:31.776 INFO    Channel Shutdown
+2022-07-25 14:02:31.777 INFO    DISCONNECTED (NLUAAS)
 ```

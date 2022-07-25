@@ -1,17 +1,17 @@
 {
     "target_artifact_reference": {
-        "uri": "urn:nuance:mix/eng-USA/XAAS_TEST/mix.asr"
+        "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.asr"
     },
     "artifact_reference": {
-        "uri": "urn:nuance:mix/eng-USA/XAAS_TEST/mix.asr"
+        "uri": "urn:nuance-mix:tag:wordset:lang/QUICK_START_COFFEE_APP_V1/EXTRA_SIZES/eng-USA/mix.asr"
     },
     "companion_artifact_reference": {
-        "uri": "urn:nuance:mix/eng-USA/XAAS_TEST/mix.asr"
+        "uri": "urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.asr?=language=eng-USA"
     },
-    "wordset": "{\"NAME\":[{\"literal\":\"Spiderman\",\"spoken\":[\"spiderman\"]}, {\"literal\":\"Vision\",\"spoken\":[\"vision\"]}]}",
+    "wordset": "{\"COFFEE_SIZE\":[{\"literal\":\"short\",\"spoken\":[\"short\"]},{\"literal\":\"tall\",\"spoken\":[\"tall\"]},{\"literal\":\"grande\",\"spoken\":[\"grandè\"]},{\"literal\":\"venti\",\"spoken\":[\"venti\"]},{\"literal\":\"trenta\",\"spoken\":[\"trenta\"]}]}",
     "metadata": {
         "tenant": "nuance",
-        "project": "test",
+        "project": "quick start coffee app",
         "client_version": "1.0.0"
     },
     "client_data": {}

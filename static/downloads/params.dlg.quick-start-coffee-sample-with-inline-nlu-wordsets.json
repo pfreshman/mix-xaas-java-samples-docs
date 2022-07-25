@@ -1,0 +1,86 @@
+{
+    "selector": {
+        "language": "en-US",
+        "channel": "Digital VA text",
+        "library": "default"
+    },
+    "session_data": {
+        "coffee_types": {
+            "COFFEE_TYPE": [
+                {
+                    "literal": "Caffè Misto",
+                    "canonical": "Caffè Misto"
+                }
+            ]
+        },
+        "coffee_sizes": {
+            "COFFEE_SIZE": [
+                {
+                    "literal": "short",
+                    "canonical": "x-sm"
+                },
+                {
+                    "literal": "tall",
+                    "canonical": "sm"
+                }
+            ]
+        }
+    },
+    "asr_control": {
+        "utterance_detection_mode": "SINGLE",
+        "result_type": "PARTIAL",
+        "audioFormat": {
+            "pcm": {
+                "sampleRateHz": 16000
+            }
+        },
+        "utterance_end_silence_ms": 1100,
+        "recognition_flags": {
+            "auto_punctuate": true,
+            "filter_profanity": false,
+            "include_tokenization": false,
+            "discard_speaker_adaptation": false,
+            "suppress_call_recording": false,
+            "mask_load_failures": true
+        },
+        "resources": [
+            {
+                "externalReference": {
+                    "type": "SPEAKER_PROFILE"
+                }
+            },
+            {
+                "inline_wordset": "{\"COFFEE_TYPE\":[{\"literal\":\"Macchiato\",\"spoken\":[\"machiato\", \"makiato\"]},{\"literal\":\"Caffè Misto\",\"spoken\":[\"cafe misto\"]},{\"literal\":\"Cinnamon Dolce Latte\",\"spoken\":[\"cinnamon dolce latte\"]}]}"
+            },
+            {
+                "inline_wordset": "{\"COFFEE_SIZE\":[{\"literal\":\"short\",\"spoken\":[\"short\"]},{\"literal\":\"tall\",\"spoken\":[\"tall\"]},{\"literal\":\"grande\",\"spoken\":[\"grandè\"]},{\"literal\":\"venti\",\"spoken\":[\"venti\"]},{\"literal\":\"trenta\",\"spoken\":[\"trenta\"]}]}"
+            }
+        ]
+    },
+    "tts_control": {
+        "voice": {
+            "name": "Zoe-Ml",
+            "model": "enhanced",
+            "language": "en-US"
+        },
+        "audioParams": {
+            "audioFormat": {
+                "pcm": {
+                    "sample_rate_hz": 22050
+                }
+            },
+            "volume_percentage": 80,
+            "speaking_rate_factor": 1.0,
+            "audio_chunk_duration_ms": 60,
+            "target_audio_length_ms": 0,
+            "disable_early_emission": false
+        }
+    },
+    "endpointer": {
+        "sos_window_ms": 0,
+        "eos_window_ms": 400,
+        "speech_detection_sensitivity": 20,
+        "bit_rate_type": 1,
+        "complexity": 3
+    }
+}

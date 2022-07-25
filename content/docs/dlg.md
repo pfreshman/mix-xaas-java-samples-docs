@@ -7,7 +7,9 @@ This sample app uses the [Mix DLGaaS gRPC API](https://docs.mix.nuance.com/dialo
 
 [Download Jar](/downloads/dlg_client.jar)
 
-[Sample Params](/downloads/params.dlg.json)
+[Quick Start Coffee App Dialog Sample Params](/downloads/params.dlg.quick-start-coffee-sample.json)
+
+[Quick Start Coffee App Dialog Sample Params (_with inline nlu wordsets_)](/downloads/params.dlg.quick-start-coffee-sample-with-inline-nlu-wordsets.json)
 
 [Wiremock Jar](/downloads/wiremock-standalone-2.27.2.jar)
 
@@ -43,16 +45,41 @@ A deployed Dialog model will be required to use this sample client.
 
 {{% mix-project-pre-reqs %}}
 
+## Running a Dialog Conversation
+
+```
+java -jar build/libs/dlg_client.jar -c config.mix-sample-app.json -p params.dlg.quick-start-coffee-sample.json -m urn:nuance-mix:tag:model/QUICK_START_COFFEE_APP_V1/mix.dialog
+2022-07-22 14:25:21.180 INFO    Version: 1.0.0
+2022-07-22 14:25:21.274 INFO    AUTHENTICATING...
+2022-07-22 14:25:21.289 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED
+2022-07-22 14:25:22.149 INFO    Adding x-client-request-id 665dc3ab-c328-431c-95fc-82e38ede1200
+2022-07-22 14:25:22.498 INFO    DIALOG STARTED [session id: 62eea0c5-7dde-42ba-8e49-45b669f56914]
+2022-07-22 14:25:22.524 INFO    Adding x-client-request-id 5a6fb82f-2d4e-4061-84b0-38c35c1a4b9b
+2022-07-22 14:25:22.770 INFO    SYSTEM PROMPT: Hello and welcome to the coffee app. What can I get you today?
+2022-07-22 14:25:22.816 INFO    USER PROMPT: Press enter to start recording audio (Type 'q' to quit): 
+2022-07-22 14:25:23.662 INFO    Adding x-client-request-id db722a8e-6ab0-4a56-bedc-db3d6b96e2e0
+2022-07-22 14:25:23.792 INFO    RECORDING...
+2022-07-22 14:25:25.197 INFO    [null] Start of Speech Detected: 1120
+2022-07-22 14:25:26.948 INFO    [null] End of Speech Detected: 2880
+2022-07-22 14:25:27.129 INFO    RECORDING STOPPED
+2022-07-22 14:25:27.843 INFO    SYSTEM PROMPT: Perfect, a tall Caffè Misto coming right up!
+2022-07-22 14:25:27.844 INFO    DIALOG FINISHED
+2022-07-22 14:25:27.886 INFO    USER PROMPT: Dialog Finished (Type 'q' to quit or any key to restart): 
+q
+2022-07-22 14:25:31.554 INFO    Channel Shutdown
+2022-07-22 14:25:31.554 INFO    DISCONNECTED
+```
+
+
 ### Dialog Data Access Backend Endpoint
 
-This client is capable of fetching data from a Data Provider upon a DLGaaS [Data Action (DA)](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#data-access-actions)
-or an [Escalation Action (EA)](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#transfer-actions).
+This sample client is capable of fetching data from a Data Provider upon a DLGaaS [Data Action (DA)](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#data-access-actions) or an [Escalation Action (EA)](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#transfer-actions).
 
-By default it will request data with an HTTP GET request to http://localhost:8080/. The host:port can be configured by using the command line option, --dialogBackendEndpoint. The URL path appended to http://localhost:8080/ will be the ID of the DA and/or EA.
+By default the client will request data with an HTTP GET request to http://localhost:8080/. The host:port can be configured by using the command line option, --dialogBackendEndpoint. The URL path appended to http://localhost:8080/ will be the ID of the Data Action and/or Escalation Action.
 
-If/when the DLGaaS sends data with the DA/EA request it will add these as query parameters. 
+If DLGaaS sends data back to the client with the DA/EA request, the client will add these data key/value pairs as query parameters to the HTTP requet. 
 
-For example, when the DLG app receives this DA request from DLGaaS:
+For example, when the client receives this DA request from DLGaaS:
 ```yaml
 {
   "payload": {
@@ -68,21 +95,24 @@ For example, when the DLG app receives this DA request from DLGaaS:
 }
 ```
 
-it will perform an HTTP GET on this URL: 
+it will construct the following URL: 
+
 ```
 http://localhost:8080/get_price?COFFEE_TYPE=expresso&COFFEE_SIZE=lg
 ```
 
-On success, HTTP status 200, the provider should provide a json response body containing the parameters to be sent back to the DLGaaS. 
+Upon success, the RESTful service should provide a json response body containing the parameters to be sent back to DLGaaS.
 
-From the example above the Data Provider may return:
+For example, continuing with the example above, the service may return back to the client:
+
 ```yaml
 { 
     "price" : "3.98" 
 }
 ```
 
-The DLGaaS app will add each key value pair returned in the json to the RequestData along with the returnCode, in the response payload sent back:
+The `dlg_client` will add each key/value pair to the RequestData along with the returnCode, in the response payload sent back to DLGaaS. For example:
+
 ```yaml
 {
   "payload": {
@@ -126,77 +156,6 @@ verbose:                      false
 
 ## Session data
 
-[The DLG app can send session data](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#exchanging-session-data) to DLGaaS when it initiates a StartRequest.
+The `dlg_client` can send [session data](https://mix.nuance.com/v3/documentation/dialog-grpc/v1/index.html#exchanging-session-data) to DLGaaS when it initiates a StartRequest.
 
-By default, the application will send the data contained in `session_data` node in the `params.json` file.
-
-## Running a Dialog Conversation
-
-### Without Data Access
-
-```
-$ java -jar build/libs/dlg_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.dialog"
-2020-09-14 01:23:28.849 INFO  Version: 1.0.0
-2020-09-14 01:23:28.935 INFO  AUTHENTICATING...
-2020-09-14 01:23:28.937 INFO  AUTHENTICATION SUCCEEDED - TOKEN CREATED
-2020-09-14 01:23:30.725 INFO  DIALOG STARTED [session id: 4ce6a7c8-4ac8-44b1-80f4-3c7c93c42c2e]
-2020-09-14 01:23:31.068 INFO  SYSTEM PROMPT: Hello Jane Doe , and welcome to the sample coffee app! What can I get you today?
-2020-09-14 01:23:35.847 INFO  USER PROMPT: Press enter to start recording audio (Type 'q' to quit):
-i'd like a latte
-2020-09-14 01:23:40.463 INFO  SYSTEM PROMPT: What size coffee would you like?
-medium
-2020-09-14 01:23:42.460 INFO  USER PROMPT: Press enter to start recording audio (Type 'q' to quit):
-2020-09-14 01:23:43.543 INFO  SYSTEM PROMPT: Perfect, a medium latte coming right up! Thanks for stopping by. Glad to be of service! \u{1f44b}
-2020-09-14 01:23:43.543 INFO  DIALOG FINISHED
-```
-
-### With Data Access
-
-Set `triggerDataAction: true` in `params.json`.
-
-```
-$ java -jar build/libs/dlg_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.dialog"
-2020-09-14 01:10:50.682 INFO  Version: 1.0.0
-2020-09-14 01:10:50.773 INFO  AUTHENTICATING...
-2020-09-14 01:10:51.451 INFO  AUTHENTICATION SUCCEEDED - TOKEN CREATED
-2020-09-14 01:10:53.253 INFO  DIALOG STARTED [session id: c7ceab6d-af0d-47ec-b07f-815e38f57fef]
-2020-09-14 01:10:53.653 INFO  SYSTEM PROMPT: Hello Jane Doe , and welcome to the sample coffee app! What can I get you today?
-2020-09-14 01:10:58.425 INFO  USER PROMPT: Press enter to start recording audio (Type 'q' to quit):
-i'd like a latte
-2020-09-14 01:11:07.789 INFO  SYSTEM PROMPT: What size coffee would you like?
-2020-09-14 01:11:09.720 INFO  USER PROMPT: Press enter to start recording audio (Type 'q' to quit):
-medium
-2020-09-14 01:11:15.083 INFO  SYSTEM PROMPT: That will be $ 2.98 for a medium latte . Coming right up! Thanks for stopping by. Glad to be of service! \u{1f44b}
-2020-09-14 01:11:15.083 INFO  DIALOG FINISHED
-
-2020-09-14 01:12:13.156 INFO  Version: 1.0.0
-2020-09-14 01:12:13.251 INFO  AUTHENTICATING...
-2020-09-14 01:12:13.254 INFO  AUTHENTICATION SUCCEEDED - TOKEN CREATED
-2020-09-14 01:12:14.998 INFO  DIALOG STARTED [session id: 5b9dfb40-cbbd-4837-9255-19b1269beffd]
-2020-09-14 01:12:15.325 INFO  SYSTEM PROMPT: Hello Jane Doe , and welcome to the sample coffee app! What can I get you today?
-2020-09-14 01:12:20.085 INFO  USER PROMPT: Press enter to start recording audio (Type 'q' to quit):
-i'd like a large latte
-2020-09-14 01:12:23.307 INFO  SYSTEM PROMPT: That will be $ 3.98 for a large latte . Coming right up! Thanks for stopping by. Glad to be of service! \u{1f44b}
-2020-09-14 01:12:23.308 INFO  DIALOG FINISHED
-```
-
-### With Data Access - Transfer
-
-Set `triggerDataAction: true` in `params.json`.
-
-```
-$ java -jar build/libs/dlg_client.jar -m "urn:nuance-mix:tag:model/XAAS_TEST/mix.dialog"
-2020-09-14 01:18:30.715 INFO  Version: 1.0.0
-2020-09-14 01:18:30.808 INFO  AUTHENTICATING...
-2020-09-14 01:18:30.810 INFO  AUTHENTICATION SUCCEEDED - TOKEN CREATED
-2020-09-14 01:18:32.506 INFO  DIALOG STARTED [session id: 03cfd555-01ae-442d-b258-4363889c9ac1]
-2020-09-14 01:18:32.814 INFO  SYSTEM PROMPT: Hello Jane Doe , and welcome to the sample coffee app! What can I get you today?
-2020-09-14 01:18:37.589 INFO  USER PROMPT: Press enter to start recording audio (Type 'q' to quit):
-blah
-2020-09-14 01:18:39.949 INFO  SYSTEM PROMPT: Sorry, didn't understand that. Can I interest you in a beverage? What can I get you today?
-2020-09-14 01:18:44.392 INFO  USER PROMPT: Press enter to start recording audio (Type 'q' to quit):
-blah
-2020-09-14 01:18:46.056 INFO  SYSTEM PROMPT: Sorry, I couldn't understand. Let me get someone for you.
-2020-09-14 01:18:46.605 INFO  SYSTEM PROMPT: Shoot, sorry we weren't able to make things work. Hope it works out next time! \u{1f44b}
-2020-09-14 01:18:46.605 INFO  DIALOG FINISHED
-```
+By default, the application will send the data contained in the `session_data` node in the `params.json` file.

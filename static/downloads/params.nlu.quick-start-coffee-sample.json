@@ -1,0 +1,19 @@
+{
+  "parameters": {
+    "interpretationInputLoggingMode": "PLAINTEXT",
+    "interpretationResultType": "SINGLE_INTENT",
+    "maxInterpretations": 3
+  },
+  "clientData": {
+    "client_version": "1.0",
+    "client_app": "xaas_nlu_java_sample_client"
+  },
+  "resources": [
+    {
+      "inline_wordset": "{\"COFFEE_TYPE\":[{\"canonical\":\"Macchiato\",\"literal\":\"Macchiato\"},{\"canonical\":\"Caffè Misto\",\"literal\":\"Caffè Misto\"},{\"canonical\":\"Caffè Misto\",\"literal\":\"Caffe Misto\"},{\"canonical\":\"Cinnamon Dolce Latte\",\"literal\":\"Cinnamon Dolce Latte\"}]}"
+    },
+    {
+      "inline_wordset": "{\"COFFEE_SIZE\":[{\"canonical\":\"x-sm\",\"literal\":\"short\"},{\"canonical\":\"sm\",\"literal\":\"tall\"},{\"canonical\":\"md\",\"literal\":\"grandè\"},{\"canonical\":\"lg\",\"literal\":\"venti\"},{\"canonical\":\"x-lg\",\"literal\":\"trenta\"}]}"
+    }
+  ]
+}
