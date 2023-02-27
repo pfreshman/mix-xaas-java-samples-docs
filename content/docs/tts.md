@@ -13,12 +13,13 @@ This sample app uses the Mix3 TTSaaS gRPC API to make TTS requests.
 
 ```
 $ java -jar build/libs/tts_client.jar -H
-Version: 1.0.0
+Version: 1.1.0
 usage: java -jar tts_client.jar [-H|--help] [-h|--hostname <value>] [-c|--configFile <value>]
                                 [-p|--params <value>] [-i|--textInput <value>] [-a|--audioSink <value>]
                                 [-l|--logFile <value>] [-s|--insecure] [-tt|--trxnTimeout <value>] [-ct|--connectTimeout <value>]
-                                [-i|--iterations <value>] [-b|--batchMode] [-v|--getVoices]
+                                [-i|--iterations <value>] [-b|--batchMode] [-ntts|--ntts] [-v|--getVoices]
 
+                                [-vn|--voiceName <value>] [-vm|--voiceModel]
                                 Use Nuance TTSaaS to vocalize text in your app
 
 Arguments:
@@ -32,11 +33,14 @@ Arguments:
  -p,--params <params>                    json file containing tts parameters. Default: params.json
  -l,--logFile <logFile>                  log file path and name. Default: tts.log
  -s,--insecure                           By default a secure TLS connection is established with NLUaaS. Specify this flag if connecting to a non-secure deployment of NLUaaS (e.g. on-prem). Default: false
+ -ntts,--ntts                            Specify this flag to use Microsofts neural TTS engine. Default: false
  -v,--voices                             Get available voices instead of synthesize audio. Default: false
  -tt,--trxnTimeout <trxnTimeout>         Time in ms to wait for tts request to complete. Default: 20000
- -ct,--connectTimeout <connectTimeout>   Time in ms to wait for connection. Default: 2000
+ -ct,--connectTimeout <connectTimeout>   Time in ms to wait for connection. Default: 3000
  -i,--iterations <iterations>            Number of iterations to run in parallel. Default: 1
  -b,--batchMode                          Batch mode reads the file specified in textInput and loops through processing each line of text. Default: false
+ -vn,--voiceName <voiceName>             Voice talent name to use. Optional - over-rides the value set in the params file. Default:
+ -vm,--voiceModel <voiceModel>           Voice model to use. Optional - over-rides the value set in the params file. Default:
  ```
 
 ## Running a TTS Request
@@ -103,7 +107,7 @@ $ java -jar build/libs/tts_client.jar --textInput  "This is a test using params 
 > Specify a file containing phrases to synthesize for the `-ti` arg and include the `-b` arg
 
 ```
-java -jar build/libs/tts_client.jar -c config.mix-beta.json -b -ti sample/input.txt 
+java -jar build/libs/tts_client.jar -b -ti sample/input.txt 
 2022-07-21 09:06:53.270 INFO    Version: 1.0.0
 2022-07-21 09:06:53.378 INFO    CONNECTING (TTSAAS)...
 2022-07-21 09:06:53.380 INFO    AUTHENTICATING... (TTSAAS)
@@ -205,4 +209,59 @@ java -jar build/libs/tts_client.jar -c config.mix-beta.json -b -ti sample/input.
 2022-07-21 09:06:55.618 INFO    59492 bytes written to file [What time is it?-21.out]
 2022-07-21 09:06:55.799 INFO    Channel Shutdown
 2022-07-21 09:06:55.800 INFO    DISCONNECTED (TTSAAS)
+```
+
+### Synthesize a Single Phrase using Nueral TTS
+
+> Requires special provisioning to access this beta feature. Please reach out to your account manager to request access.
+
+```
+java -jar build/libs/tts_client.jar -ntts -ti "Ponme un Canal de guerra" -vn es-ES-AlvaroNeural
+2023-02-27 10:35:51.736 INFO    Version: 1.1.0
+2023-02-27 10:35:51.838 INFO    CONNECTING (TTSAAS)...
+2023-02-27 10:35:51.839 INFO    AUTHENTICATING... (TTSAAS)
+2023-02-27 10:35:52.414 INFO    AUTHENTICATION SUCCEEDED - TOKEN CREATED (TTSAAS)
+2023-02-27 10:35:53.264 INFO    CONNECTED (TTSAAS)
+ >>>>>>>>> {
+  "voice": {
+    "name": "es-ES-AlvaroNeural",
+    "model": "enhanced"
+  },
+  "audioParams": {
+    "audioFormat": {
+      "pcm": {
+        "sampleRateHz": 22050
+      }
+    }
+  },
+  "input": {
+    "text": {
+      "text": "Ponme un Canal de guerra"
+    }
+  },
+  "clientData": {
+    "transaction_id": "769488c1-77f1-4729-8252-78c1133ca4e0",
+    "subscriber_id": "e35d8ea646e8447fbd0ddf4be18eae67",
+    "user_id": "e35d8ea646e8447fbd0ddf4be18eae67",
+    "client_app": "xaas_tts_java_sample_client",
+    "deviceModel": "x86_64",
+    "client_version": "1.0"
+  },
+  "userId": "e35d8ea646e8447fbd0ddf4be18eae67"
+}
+2023-02-27 10:35:53.277 INFO    Adding x-client-request-id 37b38fe0-b7b8-4be9-ac57-ea52ebc780cb
+2023-02-27 10:35:53.885 INFO    received 55058 bytes of audio
+2023-02-27 10:35:53.904 INFO    received 41896 bytes of audio
+2023-02-27 10:35:53.905 INFO    received 66 bytes of audio
+ <<<<<<<<< {
+  "status": {
+    "code": 200,
+    "message": "OK"
+  }
+}
+2023-02-27 10:35:54.138 INFO    PLAYING STARTED
+2023-02-27 10:35:56.390 INFO    PLAYING STOPPED
+2023-02-27 10:35:56.390 INFO    97020 bytes written to file [microphone]
+2023-02-27 10:35:56.393 INFO    Channel Shutdown
+2023-02-27 10:35:56.394 INFO    DISCONNECTED (TTSAAS)
 ```
